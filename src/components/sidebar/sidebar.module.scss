@@ -5,3 +5,60 @@
   min-height: 100vh;
   height: 100%;
 }
+
+.logo {
+  display: block;
+  margin: 20px 24px;
+}
+
+.nav {
+  margin-top: 52px;
+  padding: 0 24px;
+  ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    li {
+      width: 100%;
+    }
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $color-white;
+  border-radius: 8px;
+  width: 100%;
+  padding: 12px;
+  transition: all .4s ease-in-out;
+  svg {
+    margin-right: 20px;
+    path {
+      transition: stroke .4s ease-in-out;
+      stroke: $color-red;
+    }
+  }
+  &:hover {
+    background-color: $color-red;
+    color: $color-white;
+    svg {
+      path {
+        stroke: $color-white;
+      }
+    }
+  }
+}
+.active {
+  background-color: $color-red;
+  color: $color-white;
+  svg {
+    path {
+      stroke: $color-white;
+    }
+  }
+}
