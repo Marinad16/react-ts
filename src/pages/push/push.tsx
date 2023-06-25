@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./push.module.scss"
 
+interface PushPage {}
 
-const PushPage = () => {
+const PushPage: React.FC<PushPage> = () => {
     return (
-        <div className={styles.page}>
-
+        <div className={styles.container}>
+            <h1>sdgsedg</h1>
         </div>
     );
 }

@@ -12,7 +12,7 @@ const App: React.FC<AppProps> = (props) => {
             <Routes>
                 <Route path="/" element={<Layout/>}>
                     {/*<Route index element={<HomePage />} />*/}
-                    <Route path="/push" element={<PushPage />} />
+                    <Route index path="/" element={<PushPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>
