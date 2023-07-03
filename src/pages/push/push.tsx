@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from "./push.module.scss"
 import AudienceCounter from "../../components/AudienceCounter/AudienceCounter";
 import TextInput from "../../components/TextImput/TextInput";
 import SimpleSelect from "../../components/SimpleSelect/SimpleSelect";
+import DateAndTimeList from "../../components/DateAndTime/DateAndTimeList";
+import Segmentation from "../../components/Segmentation/Segmentation";
 
 interface PushPage {
 }
@@ -27,24 +29,32 @@ const PushPage: React.FC<PushPage> = () => {
                 </div>
             </div>
             <form action="">
-                <TextInput name={"name"} placeholder={"Введите название нового пуша"} label={"Название пуша"} option={""}/>
+                <TextInput name={"name"} placeholder={"Введите название нового пуша"} label={"Название пуша"}
+                           option={""}/>
                 <div className={styles.main}>
                     <div className={styles.mainWrapper}>
                         <div className={styles.mainForm}>
-                            <TextInput name={"title"} placeholder={"Введите заголовок максимально 50 символов"} label={"Заголовок сообщения"} option={""}/>
+                            <TextInput name={"title"} placeholder={"Введите заголовок максимально 50 символов"}
+                                       label={"Заголовок сообщения"} option={""}/>
                             <div className={styles.inputWrapper}>
                                 <label className={styles.inputLabel} htmlFor="name">Текст сообщения</label>
                                 <textarea className={styles.textarea} id="name" name="name"
                                           placeholder="Введите текст максимально 150 символов"/>
                             </div>
-                            <SimpleSelect label={"Исходный язык"} placeholder={"Выберите пункт"}/>
+                            <SimpleSelect label={"Исходный язык"} placeholder={"Выберите пункт"} isMulti={false}/>
                             <div className={styles.group}>
-                                <TextInput name={"icon"} placeholder={"Введите ссылку на иконку"} label={"Иконка"} option={"(опцильнально)"} />
-                                <TextInput name={"image"} placeholder={"Введите ссылку на изображение"} label={"Изображение"} option={"(опцильнально)"} />
+                                <TextInput name={"icon"} placeholder={"Введите ссылку на иконку"} label={"Иконка"}
+                                           option={"(опцильнально)"}/>
+                                <TextInput name={"image"} placeholder={"Введите ссылку на изображение"}
+                                           label={"Изображение"} option={"(опцильнально)"}/>
                             </div>
                         </div>
                         <div className={styles.preview}>
-                            sdfzsds
+                            <SimpleSelect label={"Выберите тип рассылки"} placeholder={"Выберите пункт"}
+                                          isMulti={false}/>
+                            <DateAndTimeList/>
+                            <SimpleSelect label={"Аудитория"} placeholder={"Выберите пункт"} isMulti={true}/>
+                            <Segmentation/>
                         </div>
                     </div>
                     <div className={styles.buttons}>

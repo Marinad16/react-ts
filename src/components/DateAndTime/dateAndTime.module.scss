@@ -1,0 +1,76 @@
+@import "../../assets/scss/vars";
+
+.dateWrapper {
+  padding: 20px 12px;
+  border-radius: 4px;
+  background: $color-input-gradient;
+  margin-top: -20px;
+  margin-bottom: 32px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .datePicker {
+    border-radius: 4px;
+    border: 1px solid #536274;
+    background:  #22282F;
+    opacity: 1;
+    padding: 0;
+    width: 210px;
+    input {
+      padding: 12px;
+      color: $color-white;
+    }
+  }
+  svg {
+    cursor: pointer;
+    fill: $color-yellow;
+  }
+  .deleteIcon {
+    fill: transparent;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 13px;
+}
+
+.add {
+  display: flex;
+  align-items: center;
+  color: $color-yellow;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+  svg {
+    margin-right: 12px;
+  }
+}
+
+.remove {
+  color: $color-red;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.MuiStack-root {
+  padding-top: 0 !important;
+}
+.MuiTextField-root {
+  min-width: 100px;
+}
+
+.MuiInputBase-root {
+  margin: 0;
+  padding: 0;
+  color: $color-white;
+}
