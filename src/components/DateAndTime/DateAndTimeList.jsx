@@ -7,7 +7,6 @@ import SimpleSelect from "../SimpleSelect/SimpleSelect";
 const DateAndTimeList = () => {
     const [dateOpen, setDateOpen] = useState(false);
     const [dateItems, setDateItems] = useState([]);
-    console.log(dateOpen)
 
     const handleDate = () => {
         setDateOpen(!dateOpen)

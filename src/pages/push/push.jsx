@@ -1,15 +1,72 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./push.module.scss"
 import AudienceCounter from "../../components/AudienceCounter/AudienceCounter";
 import TextInput from "../../components/TextImput/TextInput";
 import SimpleSelect from "../../components/SimpleSelect/SimpleSelect";
 import DateAndTimeList from "../../components/DateAndTime/DateAndTimeList";
 import Segmentation from "../../components/Segmentation/Segmentation";
+import {FormSchema} from "../../utils/pushSchema";
+import * as yup from "yup";
+import {useDispatch} from "react-redux";
+import {updatePushes} from "../../store/pushDataSlice";
 
-interface PushPage {
-}
 
-const PushPage: React.FC<PushPage> = () => {
+const PushPage = () => {
+    const dispatch = useDispatch();
+
+    const [push, setPush] = useState({
+        title: "",
+        push_title: "",
+        push_text: "",
+        push_icon: "",
+        push_image: "",
+        push_lang: "",
+        push_type: [
+            {
+                date: null,
+                time: null,
+            }
+        ],
+        aud: [
+            {
+                name: null,
+                value: null,
+            }
+        ],
+        segmentation: [
+            {
+                name: "",
+                action1: "",
+                action2: "",
+                amount: null,
+            }
+        ]
+    });
+    const [formErrors, setFormErrors] = useState();
+    console.log(push)
+
+    const onClickHandler = (e) => {
+        e.preventDefault();
+        FormSchema.validate(push)
+            .then((valid) => {
+                if (valid) {
+                    // addPush(push);
+                    console.log("zsdg")
+                    dispatch(updatePushes(push));
+                }
+            })
+            .catch((e) => {
+                let errors = {};
+                e.inner.map((el) => {
+                    console.log(errors)
+                    errors = {
+                        ...errors,
+                        [el.path]: el.message,
+                    };
+                });
+                setFormErrors({...formErrors, ...errors});
+            });
+    };
     return (
         <div className={styles.container}>
             <div className={styles.headerWrapper}>
@@ -29,24 +86,26 @@ const PushPage: React.FC<PushPage> = () => {
                 </div>
             </div>
             <form action="">
-                <TextInput name={"name"} placeholder={"Введите название нового пуша"} label={"Название пуша"}
-                           option={""}/>
+                <TextInput name={"title"} placeholder={"Введите название нового пуша"} label={"Название пуша"}
+                           option={""} push={push} setPush={setPush}/>
                 <div className={styles.main}>
                     <div className={styles.mainWrapper}>
                         <div className={styles.mainForm}>
-                            <TextInput name={"title"} placeholder={"Введите заголовок максимально 50 символов"}
-                                       label={"Заголовок сообщения"} option={""}/>
+                            <TextInput name={"push_title"} placeholder={"Введите заголовок максимально 50 символов"}
+                                       label={"Заголовок сообщения"} option={""} push={push} setPush={setPush}/>
                             <div className={styles.inputWrapper}>
                                 <label className={styles.inputLabel} htmlFor="name">Текст сообщения</label>
                                 <textarea className={styles.textarea} id="name" name="name"
-                                          placeholder="Введите текст максимально 150 символов"/>
+                                          placeholder="Введите текст максимально 150 символов"
+                                          onChange={(e) => setPush({...push, push_text: e.target.value})}/>
                             </div>
                             <SimpleSelect label={"Исходный язык"} placeholder={"Выберите пункт"} isMulti={false}/>
                             <div className={styles.group}>
-                                <TextInput name={"icon"} placeholder={"Введите ссылку на иконку"} label={"Иконка"}
-                                           option={"(опцильнально)"}/>
-                                <TextInput name={"image"} placeholder={"Введите ссылку на изображение"}
-                                           label={"Изображение"} option={"(опцильнально)"}/>
+                                <TextInput name={"push_icon"} placeholder={"Введите ссылку на иконку"} label={"Иконка"}
+                                           option={"(опцильнально)"} push={push} setPush={setPush}/>
+                                <TextInput name={"push_image"} placeholder={"Введите ссылку на изображение"}
+                                           label={"Изображение"} option={"(опцильнально)"} push={push}
+                                           setPush={setPush}/>
                             </div>
                         </div>
                         <div className={styles.preview}>
@@ -57,7 +116,7 @@ const PushPage: React.FC<PushPage> = () => {
                     </div>
                     <div className={styles.buttons}>
                         <button className={styles.button}>Отмена</button>
-                        <button className={styles.buttonBg}>Создать Пуш</button>
+                        <button className={styles.buttonBg} onClick={(e) => onClickHandler(e)}>Создать Пуш</button>
                     </div>
                 </div>
             </form>

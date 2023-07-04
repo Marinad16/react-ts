@@ -28,7 +28,6 @@ const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti,
     ) => {
         setSelectedOption(option);
     };
-    console.log(selectedOption)
     return (
         <div className={styles.inputWrapper}>
             <div className={styles.select}>
@@ -55,7 +54,9 @@ const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti,
                 classNamePrefix="react-select"
                 onChange={(option: SingleValue<any>) => {
                     handleSelectChange(option)
-                    onClick()
+                    if (onClick) {
+                        onClick()
+                    }
                 }}
                 options={options}
                 placeholder={placeholder}
