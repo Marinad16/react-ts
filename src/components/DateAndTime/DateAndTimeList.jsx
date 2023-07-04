@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./dateAndTime.module.scss";
 import DateAndTime from "./DateAndTime";
-import SegmentationItem from "../Segmentation/SegmentationItem";
 import SimpleSelect from "../SimpleSelect/SimpleSelect";
 
-const DateAndTimeList = () => {
+const DateAndTimeList = ({name, push, setPush}) => {
     const [dateOpen, setDateOpen] = useState(false);
     const [dateItems, setDateItems] = useState([]);
+    const [dateAndTime, setDateAndTime] = useState({});
+
+    useEffect(() => {
+        setPush({...push, push_type: dateAndTime})
+    }, [dateAndTime]);
 
     const handleDate = () => {
         setDateOpen(!dateOpen)
@@ -35,7 +39,7 @@ const DateAndTimeList = () => {
     return (
         <div>
             <SimpleSelect label={"Выберите тип рассылки"} placeholder={"Выберите пункт"}
-                          isMulti={false} onClick={handleDate}/>
+                          isMulti={false} onClick={handleDate} push={push} name={name} setPush={setPush}/>
             {dateOpen ?
                 <div className={styles.dateWrapper}>
                     {dateItems.map((item, index) => (
@@ -43,6 +47,8 @@ const DateAndTimeList = () => {
                             key={index}
                             index={index}
                             removeDateItem={removeDateItem}
+                            setDateAndTime={setDateAndTime}
+                            dateAndTime={dateAndTime}
                         />
                     ))}
                     <div className={styles.actions}>

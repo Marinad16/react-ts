@@ -6,9 +6,7 @@ import SimpleSelect from "../../components/SimpleSelect/SimpleSelect";
 import DateAndTimeList from "../../components/DateAndTime/DateAndTimeList";
 import Segmentation from "../../components/Segmentation/Segmentation";
 import {FormSchema} from "../../utils/pushSchema";
-import * as yup from "yup";
 import {useDispatch} from "react-redux";
-import {updatePushes} from "../../store/pushDataSlice";
 
 
 const PushPage = () => {
@@ -20,7 +18,10 @@ const PushPage = () => {
         push_text: "",
         push_icon: "",
         push_image: "",
-        push_lang: "",
+        push_lang: {
+            label: null,
+            value: null,
+        },
         push_type: [
             {
                 date: null,
@@ -29,7 +30,7 @@ const PushPage = () => {
         ],
         aud: [
             {
-                name: null,
+                label: null,
                 value: null,
             }
         ],
@@ -38,7 +39,7 @@ const PushPage = () => {
                 name: "",
                 action1: "",
                 action2: "",
-                amount: null,
+                amount: 0,
             }
         ]
     });
@@ -50,21 +51,23 @@ const PushPage = () => {
         FormSchema.validate(push)
             .then((valid) => {
                 if (valid) {
-                    // addPush(push);
-                    console.log("zsdg")
-                    dispatch(updatePushes(push));
+                    console.log("Form is valid");
+                    // Dispatch your action or perform other tasks here
+                } else {
+                    console.log("Form is invalid");
                 }
             })
             .catch((e) => {
-                let errors = {};
-                e.inner.map((el) => {
-                    console.log(errors)
-                    errors = {
-                        ...errors,
-                        [el.path]: el.message,
-                    };
-                });
-                setFormErrors({...formErrors, ...errors});
+                console.log("Validation error:", e);
+                // let errors = {};
+                // e.inner.map((el) => {
+                //     console.log(errors)
+                //     errors = {
+                //         ...errors,
+                //         [el.path]: el.message,
+                //     };
+                // });
+                // setFormErrors({...formErrors, ...errors});
             });
     };
     return (
@@ -95,11 +98,11 @@ const PushPage = () => {
                                        label={"Заголовок сообщения"} option={""} push={push} setPush={setPush}/>
                             <div className={styles.inputWrapper}>
                                 <label className={styles.inputLabel} htmlFor="name">Текст сообщения</label>
-                                <textarea className={styles.textarea} id="name" name="name"
+                                <textarea className={styles.textarea} id="name" name="push_text"
                                           placeholder="Введите текст максимально 150 символов"
                                           onChange={(e) => setPush({...push, push_text: e.target.value})}/>
                             </div>
-                            <SimpleSelect label={"Исходный язык"} placeholder={"Выберите пункт"} isMulti={false}/>
+                            <SimpleSelect name={"push_lang"} label={"Исходный язык"} placeholder={"Выберите пункт"} isMulti={false} push={push} setPush={setPush}/>
                             <div className={styles.group}>
                                 <TextInput name={"push_icon"} placeholder={"Введите ссылку на иконку"} label={"Иконка"}
                                            option={"(опцильнально)"} push={push} setPush={setPush}/>
@@ -109,9 +112,9 @@ const PushPage = () => {
                             </div>
                         </div>
                         <div className={styles.preview}>
-                            <DateAndTimeList/>
-                            <SimpleSelect label={"Аудитория"} placeholder={"Выберите пункт"} isMulti={true}/>
-                            <Segmentation/>
+                            <DateAndTimeList push={push} setPush={setPush} name={"push_type"}/>
+                            <SimpleSelect label={"Аудитория"} placeholder={"Выберите пункт"} isMulti={true}  push={push} setPush={setPush} name={"aud"}/>
+                            <Segmentation push={push} setPush={setPush} name={"segmentation"}/>
                         </div>
                     </div>
                     <div className={styles.buttons}>

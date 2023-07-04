@@ -13,6 +13,9 @@ interface SimpleSelectProps {
     placeholder: string;
     isMulti: boolean;
     onClick?: any;
+    push?: any;
+    setPush?: any;
+    name?: string;
 }
 
 const options = [
@@ -21,12 +24,14 @@ const options = [
     {value: 'vanilla', label: 'Vanilla'},
 ];
 
-const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti, onClick}) => {
+const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti, onClick, push, setPush, name}) => {
     const [selectedOption, setSelectedOption] = useState<SelectProps>();
     const handleSelectChange = (
         option: SelectProps
     ) => {
         setSelectedOption(option);
+        // @ts-ignore
+        setPush({...push, [name]: option})
     };
     return (
         <div className={styles.inputWrapper}>
