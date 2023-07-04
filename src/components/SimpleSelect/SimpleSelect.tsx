@@ -12,6 +12,7 @@ interface SimpleSelectProps {
     label: string;
     placeholder: string;
     isMulti: boolean;
+    onClick?: any;
 }
 
 const options = [
@@ -20,7 +21,7 @@ const options = [
     {value: 'vanilla', label: 'Vanilla'},
 ];
 
-const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti}) => {
+const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti, onClick}) => {
     const [selectedOption, setSelectedOption] = useState<SelectProps>();
     const handleSelectChange = (
         option: SelectProps
@@ -54,6 +55,7 @@ const SimpleSelect: React.FC<SimpleSelectProps> = ({label, placeholder, isMulti}
                 classNamePrefix="react-select"
                 onChange={(option: SingleValue<any>) => {
                     handleSelectChange(option)
+                    onClick()
                 }}
                 options={options}
                 placeholder={placeholder}

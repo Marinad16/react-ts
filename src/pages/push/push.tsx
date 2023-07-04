@@ -50,8 +50,6 @@ const PushPage: React.FC<PushPage> = () => {
                             </div>
                         </div>
                         <div className={styles.preview}>
-                            <SimpleSelect label={"Выберите тип рассылки"} placeholder={"Выберите пункт"}
-                                          isMulti={false}/>
                             <DateAndTimeList/>
                             <SimpleSelect label={"Аудитория"} placeholder={"Выберите пункт"} isMulti={true}/>
                             <Segmentation/>
